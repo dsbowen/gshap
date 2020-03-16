@@ -64,8 +64,8 @@ class ClassificationDistance():
 
         `output` is a (# samples x 1) classification vector.
         """
-        pos = np.isin(output, self.positive_classes)
-        neg = np.isin(output, self.negative_classes, invert=True)
+        pos = np.isin(output, self.positive_classes).astype(int).mean()
+        neg = np.isin(output, self.negative_classes).astype(int).mean()
         return pos, neg
 
     def _soft_classes(self, output):

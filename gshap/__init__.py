@@ -3,8 +3,6 @@
 A model-agnostic class for computing general SHAP (G-SHAP) values.
 """
 
-import datasets
-
 from random import choices, shuffle
 import numpy as np
 import pandas as pd
