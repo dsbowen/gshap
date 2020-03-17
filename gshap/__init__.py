@@ -73,7 +73,7 @@ class KernelExplainer():
         -------
         Approximated G-SHAP value for feature `j` (float).
         """
-        j = X.columns.index(j) if isinstance(j, str) else j
+        j = list(X.columns).index(j) if isinstance(j, str) else j
         nsamples = kwargs.get('nsamples', self.nsamples)
         phi = [self._compute_phi(j, X) for m in range(nsamples)]
         return sum(phi) / len(phi)
