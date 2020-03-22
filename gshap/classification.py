@@ -38,20 +38,6 @@ class ClassificationDistance():
             return 'all'
         return self.positive_classes + self.negative_classes
 
-    def select_observations(self, model, *X):
-        """Select observations belonging to the relevant classes
-
-        Parameters
-        ----------
-        model : callable
-            Takes features matrices X and returns (# samples x 1) 
-            classification vector.
-        X : (# samples x # features) matrices
-        """
-        if self.classes != 'all':
-            X = [x[np.isin(model(x), self.classes)] for x in X]        
-        return X[0] if len(X) == 1 else X
-
     def __call__(self, output):
         if len(output.shape) == 1:
             pos, neg = self._hard_classes(output)

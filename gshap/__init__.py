@@ -38,6 +38,28 @@ class KernelExplainer():
     def nsamples(self):
         """Default number of samples to draw to approximate G-SHAP values"""
         return 2 * self.P + 2**11
+
+    def compare(self, X, bootstrap_samples=1000):
+        """Compare background data to comparison data `X` in terms of g
+
+        Parameters
+        ----------
+        X : numpy.array or pandas.Series or pandas.DataFrame
+            (# samples x # features) matrix of comparison data
+        bootstrap_samples : scalar
+            Number of bootstrapped samples for computing g of the background 
+            data.
+
+        Returns
+        -------
+        g(model(X)), g(model(background data))
+        """
+        X = self._get_data(X)
+        g_data = []
+        for i in range(bootstrap_samples):
+            sample = np.array(choices(self.data, k=X.shape[0]))
+            g_data.append(self.g(self.model(sample)))
+        return self.g(self.model(X)), sum(g_data) / len(g_data)
         
     def gshap_values(self, X, **kwargs):
         """Compute G-SHAP values for all features
@@ -90,10 +112,7 @@ class KernelExplainer():
         j'th feature from `X` to `X_mj`.
         5. Return phi = g(model(X_pj)) - g(model(X_mj)).
         """
-        X = X.values if isinstance(X, (pd.Series, pd.DataFrame)) else X
-        if len(X.shape) == 1:
-            # Reshape X to a 1xP matrix
-            X = X.reshape(1, X.shape[0])
+        X = self._get_data(X)
         # Ensure feature dimension of X matches that of the background data
         assert X.shape[1] == self.P
 
@@ -111,3 +130,17 @@ class KernelExplainer():
         X_pj[:,j] = X[:,j]
 
         return self.g(self.model(X_pj)) - self.g(self.model(X_mj))
+
+    def _get_data(self, X):
+        """Get data matrix
+
+        Parameters
+        ----------
+        X : numpy.array or pandas.DataFrame or pandas.Series
+
+        Returns
+        -------
+        (# samples x # features) numpy.array
+        """
+        X = X.values if isinstance(X, (pd.Series, pd.DataFrame)) else X
+        return X.reshape(1, X.shape[0]) if len(X.shape)==1 else X
