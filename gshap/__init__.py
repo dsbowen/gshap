@@ -66,7 +66,7 @@ class KernelExplainer():
 
         Parameters
         ----------
-        X : numpy.array or pandas.DataFrame
+        X : numpy.array or pandas.DataFrame or pandas.Series
             A (# samples x # features) matrix.
         nsamples : scalar or 'auto' (optional)
             Number of samples to draw when approximating G-SHAP values.
