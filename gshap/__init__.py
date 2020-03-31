@@ -1,5 +1,4 @@
 """KernelExplainer class
-
 A model-agnostic class for computing general SHAP (G-SHAP) values.
 """
 
@@ -10,7 +9,6 @@ import pandas as pd
 
 class KernelExplainer():
     """Implements the Kernel SHAP method
-
     Parameters
     ----------
     model : callable
@@ -21,7 +19,6 @@ class KernelExplainer():
     data : numpy.array or pandas.DataFrame
         Background dataset from which values are randomly sampled to simulate 
         absent features.
-
     g : callable
         Callable which takes the `model` output and returns a scalar.
     """
@@ -41,7 +38,6 @@ class KernelExplainer():
 
     def compare(self, X, bootstrap_samples=1000):
         """Compare background data to comparison data `X` in terms of g
-
         Parameters
         ----------
         X : numpy.array or pandas.Series or pandas.DataFrame
@@ -49,7 +45,6 @@ class KernelExplainer():
         bootstrap_samples : scalar
             Number of bootstrapped samples for computing g of the background 
             data.
-
         Returns
         -------
         g(model(X)), g(model(background data))
@@ -63,14 +58,12 @@ class KernelExplainer():
         
     def gshap_values(self, X, **kwargs):
         """Compute G-SHAP values for all features
-
         Parameters
         ----------
         X : numpy.array or pandas.DataFrame or pandas.Series
             A (# samples x # features) matrix.
         nsamples : scalar or 'auto' (optional)
             Number of samples to draw when approximating G-SHAP values.
-
         Returns
         -------
         List of G-SHAP values ordered by feature index.
@@ -81,7 +74,6 @@ class KernelExplainer():
 
     def gshap_value(self, j, X, **kwargs):
         """Compute G-SHAP value for feature `j`
-
         Parameters
         ----------
         j : scalar or column name
@@ -90,7 +82,6 @@ class KernelExplainer():
             A (# samples x # features) matrix.
         nsamples : scalar or 'auto' (optional)
             Number of samples to draw when approximating G-SHAP values.
-
         Returns
         -------
         Approximated G-SHAP value for feature `j` (float).
@@ -133,11 +124,9 @@ class KernelExplainer():
 
     def _get_data(self, X):
         """Get data matrix
-
         Parameters
         ----------
         X : numpy.array or pandas.DataFrame or pandas.Series
-
         Returns
         -------
         (# samples x # features) numpy.array
