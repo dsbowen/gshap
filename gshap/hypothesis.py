@@ -30,7 +30,19 @@ class HypothesisTest():
         self.bootstrap_samples = bootstrap_samples
 
     def __call__(self, output):
-        """Computes the probablity of the hypothesis being true"""
+        """Computes the probablity of the hypothesis being true
+        
+        Parameters
+        ----------
+        output : numpy.array
+            (# observations,) vector of model outputs.
+
+        Returns
+        -------
+        probability : scalar
+            Probability that the hypothesis is true of the population from 
+            which the model output was drawn.
+        """
         test_results = [
             self._test_hypothesis(output) 
             for i in range(self.bootstrap_samples)

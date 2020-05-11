@@ -28,12 +28,19 @@ class KernelExplainer():
     """
     def __init__(self, model, data, g=(lambda x: x.mean())):
         self.model = model
-        self.data = (
-            data.values if isinstance(data, (pd.DataFrame, pd.Series)) 
-            else data
-        )
-        self.N, self.P = data.shape
+        self.data = data
         self.g = g
+
+    @property
+    def data(self):
+        return self._data
+
+    @data.setter
+    def data(self, X):
+        self._data = (
+            X.values if isinstance(X, (pd.DataFrame, pd.Series)) else X
+        )
+        self.N, self.P = self._data.shape
 
     @property
     def nsamples(self):
@@ -74,7 +81,7 @@ class KernelExplainer():
 
         Returns
         -------
-        List of G-SHAP values ordered by feature index.
+        (# features )numpy.array of G-SHAP values ordered by feature index.
         """
         return np.array(
             [self.gshap_value(j, X, **kwargs) for j in range(self.P)]
