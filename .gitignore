@@ -1,6 +1,9 @@
 __pycache__/
 *.egg-info/
+docs_md/
 gshap/performance.py
 .gitcredentials
 .ipynb_checkpoints
+mkdocs.py
+mkdocs.yml
 test.ipynb

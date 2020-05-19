@@ -1,7 +1,4 @@
-"""KernelExplainer class
-
-A model-agnostic class for computing general SHAP (G-SHAP) values.
-"""
+"""# Kernel Explainer"""
 
 from gshap.utils import get_data
 
@@ -11,22 +8,77 @@ import pandas as pd
 
 
 class KernelExplainer():
-    """Implements the Kernel SHAP method
+    """
+    The Kernel Explainer is a model-agnostic method of approximating G-SHAP 
+    values.
 
     Parameters
     ----------
     model : callable
         Callable which takes a (# samples x # features) matrix and returns an 
         output which will be fed into `g`. For ordinary SHAP, the model 
-        returns a (# samples x 1) output vector.
+        returns a (# samples, # targets) output vector.
     
-    data : numpy.array or pandas.DataFrame
+    data : numpy.array or pandas.DataFrame or pandas.Series
         Background dataset from which values are randomly sampled to simulate 
         absent features.
+
     g : callable
         Callable which takes the `model` output and returns a scalar.
+
+    Attributes
+    ----------
+    model : callable
+        Set from the `model` parameter.
+
+    data : numpy.array
+        Set from the `data` parameter. If `data` is a `pandas` object, it is 
+        automatically converted to a `numpy.array`.
+
+    g : callable
+        Set from the `g` parameter.
+
+    Examples
+    --------
+    This example shows how to compute classical SHAP values.
+    ```python
+    import gshap
+    
+    from sklearn.datasets import load_boston
+    from sklearn.linear_model import LinearRegression
+
+    X, y = load_boston(return_X_y=True)
+    reg = LinearRegression().fit(X,y)
+    explainer = gshap.KernelExplainer(
+    \    model=reg.predict, data=X, g=lambda x: x.mean()
+    )
+    explainer.gshap_values(X, nssamples=1000)
+    ```
+
+    Out:
+
+    ```
+    array([-8.52873964e-04, -4.90442234e-04,  9.42836482e-05,  3.98231297e-04,
+    \    2.03149964e-03,  3.93086231e-03, -7.38176865e-06,  3.81400727e-03,
+    \    5.19437337e-03, -1.34661588e-03,  7.08535145e-04,  1.50486721e-03,
+    \   -8.28480438e-03])
+    ```
+
+    As expected, all SHAP values are 0 for linear regression. We can see this 
+    when we compare the mean prediction for the original data `X` to the 
+    shuffled background data `explainer.data`.
+
+    ```python
+    explainer.compare(X, bootstrap_samples=1000)
+    ```
+
+    Out:
+
+    ```
+    22.53280632411067, 22.52089950825812
+    ```
     """
-    def __init__(self, model, data, g=(lambda x: x.mean())):
+    def __init__(self, model, data, g=lambda x: x.mean()):
         self.model = model
         self.data = data
         self.g = g
@@ -48,19 +100,26 @@ class KernelExplainer():
         return 2 * self.P + 2**11
 
     def compare(self, X, bootstrap_samples=1000):
-        """Compare background data to comparison data `X` in terms of g
+        """
+        Compares the background data `self.data` to the comparison data `X` 
+        in terms of the general function `self.g`.
 
         Parameters
         ----------
         X : numpy.array or pandas.Series or pandas.DataFrame
-            (# samples x # features) matrix of comparison data
+            (# samples, # features) matrix of comparison data.
+
         bootstrap_samples : scalar
-            Number of bootstrapped samples for computing g of the background 
-            data.
+            Number of bootstrapped samples for computing `g` of the 
+            background data.
 
         Returns
         -------
-        g(model(X)), g(model(background data))
+        g_comparison : float
+            *g(model(X))*, where *X* is the comparison data.
+
+        g_background : float
+            *g(model(X_b))*, where *X_b* is the shuffled background data.
         """
         X = get_data(X)
         g_data = []
@@ -70,38 +129,45 @@ class KernelExplainer():
         return self.g(self.model(X)), sum(g_data) / len(g_data)
         
     def gshap_values(self, X, **kwargs):
-        """Compute G-SHAP values for all features
+        """
+        Compute G-SHAP values for all features.
 
         Parameters
         ----------
         X : numpy.array or pandas.DataFrame or pandas.Series
-            A (# samples x # features) matrix.
-        nsamples : scalar or 'auto' (optional)
+            A (# samples, # features) matrix.
+
+        nsamples : scalar or 'auto', default='auto'
             Number of samples to draw when approximating G-SHAP values.
 
         Returns
         -------
-        (# features )numpy.array of G-SHAP values ordered by feature index.
+        gshap_values : np.array
+            (# features,) vector of G-SHAP values ordered by feature index.
         """
         return np.array(
             [self.gshap_value(j, X, **kwargs) for j in range(self.P)]
         )
 
     def gshap_value(self, j, X, **kwargs):
-        """Compute G-SHAP value for feature `j`
+        """
+        Compute the G-SHAP value for feature `j`.
 
         Parameters
         ----------
         j : scalar or column name
             The index or column name of the feature of interest.
-        X : numpy.array or pandas.DataFrame
-            A (# samples x # features) matrix.
-        nsamples : scalar or 'auto' (optional)
+
+        X : numpy.array or pandas.DataFrame or pandas.Series
+            A (# samples, # features) matrix.
+
+        nsamples : scalar or 'auto', default='auto'
             Number of samples to draw when approximating G-SHAP values.
 
         Returns
         -------
-        Approximated G-SHAP value for feature `j` (float).
+        gshap_value : float
+            Approximated G-SHAP value for feature `j` (float).
         """
         j = list(X.columns).index(j) if isinstance(j, str) else j
         nsamples = kwargs.get('nsamples', self.nsamples)

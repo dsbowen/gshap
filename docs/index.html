@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="None">
+  
+  
+  <link rel="shortcut icon" href="img/favicon.ico">
+  <title>Generalized SHAP</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700" />
+
+  <link rel="stylesheet" href="css/theme.css" />
+  <link rel="stylesheet" href="css/theme_extra.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css" />
+  
+  <script>
+    // Current page data
+    var mkdocs_page_name = "Home";
+    var mkdocs_page_input_path = "index.md";
+    var mkdocs_page_url = null;
+  </script>
+  
+  <script src="js/jquery-2.1.1.min.js" defer></script>
+  <script src="js/modernizr-2.8.3.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script> 
+  
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+        <a href="." class="icon icon-home"> Generalized SHAP</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="./search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+                <ul class="current">
+                    <li class="toctree-l1 current"><a class="reference internal current" href=".">Home</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#applications">Applications</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#general-classification-and-regression">General classification and regression</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#intergroup-differences">Intergroup differences</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#model-performance-and-failure">Model performance and failure</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#installation">Installation</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#quickstart">Quickstart</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#citation">Citation</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#license">License</a>
+    </li>
+    </ul>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="kernel_explainer/">Kernel explainer</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">General functions</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="probability_distance/">General classification and regression</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="hypothesis/">Hypothesis testing</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="intergroup/">Intergroup differences</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="contribute/">Contribute</a>
+                    </li>
+                </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href=".">Generalized SHAP</a>
+      </nav>
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href=".">Docs</a> &raquo;</li>
+    
+      
+    
+    <li>Home</li>
+    <li class="wy-breadcrumbs-aside">
+      
+    </li>
+  </ul>
+  
+  <hr/>
+</div>
+          <div role="main">
+            <div class="section">
+              
+                <h1 id="generalized-shapley-additive-explanations">Generalized Shapley Additive Explanations</h1>
+<p>Generalized Shapley Additive Explanations (G-SHAP) is a technique in explainable AI for answering broad questions in machine learning.</p>
+<h2 id="applications">Applications</h2>
+<h3 id="general-classification-and-regression">General classification and regression</h3>
+<p>Suppose we have a black-box model which diagnoses patients with COVID-19, the flu, or a common cold based on their symptoms. Existing explanatory methods can tell us why our model diagnosed a patient with COVID-19. G-SHAP can answer broader questions, such as <em>how do the symptoms which distinguish COVID-19 from the flu differ from those which distinguish COVID-19 from the common cold?</em>.</p>
+<p>Full analysis <a href="https://github.com/dsbowen/gshap/blob/master/classification.ipynb">here</a>.</p>
+<h3 id="intergroup-differences">Intergroup differences</h3>
+<p>Suppose we have a black-box model which predicts a criminal’s risk of recidivism to determine whether they are eligible for parole. Existing explanatory methods can tell us why our model predicted that a criminal has a high recidivism risk. G-SHAP can answer broader questions, such as <em>why does our model predict that Black criminals have higher recidivism rates than White criminals?</em>.</p>
+<p>Full analysis <a href="https://github.com/dsbowen/gshap/blob/master/intergroup_difference.ipynb">here</a>.</p>
+<h3 id="model-performance-and-failure">Model performance and failure</h3>
+<p>Suppose we have a black-box model which forecasts GDP growth based on macroeconomic variables. Existing explanatory methods can tell us why our model forecast 3% GDP growth in a given year. G-SHAP can answer broader questions, such as <em>why did our model fail to forecast the 2008-2009 financial crisis?</em>.</p>
+<p>Full analysis <a href="https://github.com/dsbowen/gshap/blob/master/model_failure_regression.ipynb">here</a>.</p>
+<h2 id="installation">Installation</h2>
+<pre><code>$ pip install gshap
+</code></pre>
+
+<h2 id="quickstart">Quickstart</h2>
+<p>Here we train a support vector classifier to predict whether a criminal will recidivate within two years of release from prison. We use G-SHAP to ask why our model predicts that Black criminals are more likely to recidivate than non-Black criminals.</p>
+<pre><code class="python">import gshap
+from gshap.datasets import load_recidivism
+from gshap.intergroup import IntergroupDifference
+
+from sklearn.svm import SVC
+
+X, y = load_recidivism(return_X_y=True)
+clf = SVC().fit(X, y)
+
+g = IntergroupDifference(group=X['black'], distance='relative_mean_distance')
+explainer = gshap.KernelExplainer(clf.predict, X, g)
+explainer.gshap_values(X_test, nsamples=32)
+</code></pre>
+
+<p>Out:</p>
+<pre><code>array([ 0.01335252,  0.24884556,  0.00132373, -0.0025238 , -0.00151837,
+    0.40453822,  0.01636782,  0.07666043, -0.00056414,  0.00966583])
+</code></pre>
+
+<p>The sum of the G-SHAP values is the relative difference in predicted recidivism rates. The model predicts that Black criminals are 75% more likely to recidivate. </p>
+<p>The variables most responsible for this difference are number of prior convictions (index 5; 40%), age (index 1; 25%), and race (index 7; 8%).</p>
+<h2 id="citation">Citation</h2>
+<pre><code>@software{bowen2020gshap,
+  author = {Dillon Bowen},
+  title = {Generalized Shapley Additive Explanations},
+  url = {https://dsbowen.github.io/gshap/},
+  date = {2020-05-19},
+}
+</code></pre>
+
+<h2 id="license">License</h2>
+<p>Users must cite G-SHAP in any publications which use this software.</p>
+<p>G-SHAP is licensed with the MIT <a href="https://github.com/dsbowen/gshap/blob/master/LICENSE">License</a>.</p>
+              
+            </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="kernel_explainer/" class="btn btn-neutral float-right" title="Kernel explainer">Next <span class="icon icon-circle-arrow-right"></span></a>
+      
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+    
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+      
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="versions">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      
+      
+      
+        <span style="margin-left: 15px"><a href="kernel_explainer/" style="color: #fcfcfc">Next &raquo;</a></span>
+      
+    </span>
+</div>
+    <script>var base_url = '.';</script>
+    <script src="js/theme.js" defer></script>
+      <script src="search/main.js" defer></script>
+    <script defer>
+        window.onload = function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        };
+    </script>
+
+</body>
+</html>
+
+<!--
+MkDocs version : 1.1.1
+Build Date UTC : 2020-05-19 22:12:58.586453+00:00
+-->

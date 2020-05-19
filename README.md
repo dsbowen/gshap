@@ -1,44 +1,76 @@
-# Generalized SHAP
+Generalized Shapley Additive Explanations (G-SHAP) is a technique in explainable AI for answering broad questions in machine learning.
 
-**Generalized Shapley Additive Explanations (G-SHAP)** generalizes [SHAP](https://github.com/slundberg/shap) to answer broader questions in machine learning.
+[Read the docs](https://dsbowen.github.io/gshap).
 
-Its uses include:
+## Applications
 
-1. **General classification explanations**. What features distinguish class $c_0$ from class $c_1$?
-2. **Intergroup differences**. Why does our model make different predictions for different groups of observations?
-3. **Model failure**. Why does our model perform poorly on sample $x$?
+### General classification and regression
 
-## Example
+Suppose we have a black-box model which diagnoses patients with COVID-19, the flu, or a common cold based on their symptoms. Existing explanatory methods can tell us why our model diagnosed a patient with COVID-19. G-SHAP can answer broader questions, such as *how do the symptoms which distinguish COVID-19 from the flu differ from those which distinguish COVID-19 from the common cold?*.
 
-Suppose we have a `model` which takes a $n\times p$ feature matrix and returns a $n\times q$ output matrix. We also have a function `g` which takes the output matrix and returns a scalar. We can use G-SHAP to explain why the output of function `g` differs for a sample `x` relative to a background dataset `X_b` as follows:
+Full analysis [here](https://github.com/dsbowen/gshap/blob/master/classification.ipynb).
 
-```python
-explainer = gshap.KernelExplainer(model, X_b, g)
-gshap_values = explainer.gshap_values(x)
+### Intergroup differences
+
+Suppose we have a black-box model which predicts a criminal’s risk of recidivism to determine whether they are eligible for parole. Existing explanatory methods can tell us why our model predicted that a criminal has a high recidivism risk. G-SHAP can answer broader questions, such as *why does our model predict that Black criminals have higher recidivism rates than White criminals?*.
+
+Full analysis [here](https://github.com/dsbowen/gshap/blob/master/intergroup_difference.ipynb).
+
+### Model performance and failure
+
+Suppose we have a black-box model which forecasts GDP growth based on macroeconomic variables. Existing explanatory methods can tell us why our model forecast 3% GDP growth in a given year. G-SHAP can answer broader questions, such as *why did our model fail to forecast the 2008-2009 financial crisis?*.
+
+Full analysis [here](https://github.com/dsbowen/gshap/blob/master/model_failure_regression.ipynb).
+
+## Installation
+
+```
+$ pip install gshap
 ```
 
-`gshap_values` is a $p\times 1$ vector of feature importances. Each G-SHAP value `gshap_values[j]` is the amount of the difference `g(model(x))-g(model(X_b))` explained by feature $j$.
+## Quickstart
 
-## Documentation
+Here we train a support vector classifier to predict whether a criminal will recidivate within two years of release from prison. We use G-SHAP to ask why our model predicts that Black criminals are more likely to recidivate than non-Black criminals.
 
-You can find the latest documentation at https://dsbowen.github.io/gshap.
+```python
+import gshap
+from gshap.datasets import load_recidivism
+from gshap.intergroup import IntergroupDifference
 
-## License
+from sklearn.svm import SVC
 
-Publications which use this software should include the following citation:
+X, y = load_recidivism(return_X_y=True)
+clf = SVC().fit(X, y)
 
-Bowen, D.S. (2020). Generalized SHAP: Methods for answering broader questions in machine learning. https://dsbowen.github.io/gshap.
+g = IntergroupDifference(group=X['black'], distance='relative_mean_distance')
+explainer = gshap.KernelExplainer(clf.predict, X, g)
+explainer.gshap_values(X_test, nsamples=32)
+```
 
-BibTex:
+Out:
+
+```
+array([ 0.01335252,  0.24884556,  0.00132373, -0.0025238 , -0.00151837,
+    0.40453822,  0.01636782,  0.07666043, -0.00056414,  0.00966583])
+```
+
+The sum of the G-SHAP values is the relative difference in predicted recidivism rates. The model predicts that Black criminals are 75% more likely to recidivate. 
+
+The variables most responsible for this difference are number of prior convictions (index 5; 40%), age (index 1; 25%), and race (index 7; 8%).
+
+## Citation
 
 ```
 @software{bowen2020gshap,
   author = {Dillon Bowen},
-  title = {Generalized SHAP: Methods for answering broader questions in machine learning},
-  url = {https://dsbowen.github.io/gshap},
-  version = {0.0.1},
-  date = {2020-04-28},
+  title = {Generalized Shapley Additive Explanations},
+  url = {https://dsbowen.github.io/gshap/},
+  date = {2020-05-19},
 }
 ```
 
-This project is licensed under the MIT License [LICENSE](https://github.com/dsbowen/gshap/blob/master/LICENSE).
+## License
+
+Users must cite G-SHAP in any publications which use this software.
+
+G-SHAP is licensed with the MIT [License](https://github.com/dsbowen/gshap/blob/master/LICENSE).

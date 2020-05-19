@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  
+  
+  <link rel="shortcut icon" href="../img/favicon.ico">
+  <title>General classification and regression - Generalized SHAP</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700" />
+
+  <link rel="stylesheet" href="../css/theme.css" />
+  <link rel="stylesheet" href="../css/theme_extra.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css" />
+  
+  <script>
+    // Current page data
+    var mkdocs_page_name = "General classification and regression";
+    var mkdocs_page_input_path = "probability_distance.md";
+    var mkdocs_page_url = null;
+  </script>
+  
+  <script src="../js/jquery-2.1.1.min.js" defer></script>
+  <script src="../js/modernizr-2.8.3.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script> 
+  
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+        <a href=".." class="icon icon-home"> Generalized SHAP</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="..">Home</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../kernel_explainer/">Kernel explainer</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">General functions</span></p>
+                <ul class="current">
+                    <li class="toctree-l1 current"><a class="reference internal current" href="./">General classification and regression</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#gshapprobability_distanceprobabilitydistance">gshap.probability_distance.ProbabilityDistance</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#examples">Examples</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#methods">Methods</a>
+    </li>
+        </ul>
+    </li>
+    </ul>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../hypothesis/">Hypothesis testing</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../intergroup/">Intergroup differences</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../contribute/">Contribute</a>
+                    </li>
+                </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="..">Generalized SHAP</a>
+      </nav>
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="..">Docs</a> &raquo;</li>
+    
+      
+        
+          <li>General functions &raquo;</li>
+        
+      
+    
+    <li>General classification and regression</li>
+    <li class="wy-breadcrumbs-aside">
+      
+    </li>
+  </ul>
+  
+  <hr/>
+</div>
+          <div role="main">
+            <div class="section">
+              
+                <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
+
+<p><link rel="stylesheet" href="https://assets.readthedocs.org/static/css/readthedocs-doc-embed.css" type="text/css" /></p>
+<style>
+    a.src-href {
+        float: right;
+    }
+    p.attr {
+        margin-top: 0.5em;
+        margin-left: 1em;
+    }
+    p.func-header {
+        background-color: gainsboro;
+        border-radius: 0.1em;
+        padding: 0.5em;
+        padding-left: 1em;
+    }
+    table.field-table {
+        border-radius: 0.1em
+    }
+</style>
+
+<h1 id="general-classification-and-regression-explanations">General classification and regression explanations</h1>
+<p>For examples and interpretation, see my notebooks on <a href="https://github.com/dsbowen/gshap/blob/master/classification.ipynb">general classification explanations</a> and <a href="https://github.com/dsbowen/gshap/blob/master/regression.ipynb">general regression explanations</a>.</p>
+<table class="docutils field-list field-table" frame="void" rules="none">
+    <col class="field-name" />
+    <col class="field-body" />
+    <tbody valign="top">
+
+    </tbody>
+</table>
+
+<h2 id="gshapprobability_distanceprobabilitydistance">gshap.probability_distance.<strong>ProbabilityDistance</strong></h2>
+<p class="func-header">
+    <i>class</i> gshap.probability_distance.<b>ProbabilityDistance</b>(<i>positive, negative=None</i>) <a class="src-href" target="_blank" href="https://github.com/dsbowen/gshap/blob/master/gshap/probability_distance.py#L7">[source]</a>
+</p>
+
+<p>This class measures how likely each predicted target value (output) was to
+have been generated by a 'positive' distribution or density, rather than a
+'negative' distribution or density.</p>
+<table class="docutils field-list field-table" frame="void" rules="none">
+    <col class="field-name" />
+    <col class="field-body" />
+    <tbody valign="top">
+        <tr class="field">
+    <th class="field-name"><b>Parameters:</b></td>
+    <td class="field-body" width="100%"><b>positive : <i>callable or list of callables</i></b>
+<p class="attr">
+    Densities and distributions take the output of a model, usually a (# observations,) or (# observations, # classes) vector. It returns a (# observations,) vector of probabilities that the predicted target value was generated by the density or distribution.
+</p>
+<b>negative : <i>callable or list of callables or None, default=None</i></b>
+<p class="attr">
+    Similarly defined. If <code>None</code>, the probability that each observation comes from a negative density or distribution will be treated as the complement of <code>positive</code>.
+</p></td>
+</tr>
+<tr class="field">
+    <th class="field-name"><b>Attributes:</b></td>
+    <td class="field-body" width="100%"><b>positive : <i>callable or list of callables</i></b>
+<p class="attr">
+    Set from the <code>positive</code> parameter.
+</p>
+<b>negative : <i>callable or list of callables</i></b>
+<p class="attr">
+    Set from the <code>negative</code> parameter.
+</p></td>
+</tr>
+    </tbody>
+</table>
+
+<h4 id="examples">Examples</h4>
+<pre><code class="python">import gshap
+from gshap.probability_distance import ProbabilityDistance
+
+from sklearn.datasets import load_iris
+from sklearn.svm import SVC
+
+X, y = load_iris(return_X_y=True)
+clf = SVC(probability=True).fit(X,y)
+
+# probability that each observation is in class 1
+pos_distribution = lambda y_pred: y_pred[:,1]
+# probability that each observation is in class 0
+neg_distribution = lambda y_pred: y_pred[:,0]
+g = ProbabilityDistance(pos_distribution, neg_distribution)
+explainer = gshap.KernelExplainer(clf.predict_proba, X, g)
+explainer.gshap_values(x, nsamples=1000)
+</code></pre>
+
+<p>Out:</p>
+<pre><code>array([0.02175944, 0.01505252, 0.17106646, 0.13605429])
+</code></pre>
+
+<h4 id="methods">Methods</h4>
+<p class="func-header">
+    <i></i> <b>__call__</b>(<i>self, output</i>) <a class="src-href" target="_blank" href="https://github.com/dsbowen/gshap/blob/master/gshap/probability_distance.py#L65">[source]</a>
+</p>
+
+<table class="docutils field-list field-table" frame="void" rules="none">
+    <col class="field-name" />
+    <col class="field-body" />
+    <tbody valign="top">
+        <tr class="field">
+    <th class="field-name"><b>Parameters:</b></td>
+    <td class="field-body" width="100%"><b>output : <i>np.array</i></b>
+<p class="attr">
+    Model output, usually (# observations,) or (# obervations, # classes) array for regression or classification problems, respectively.
+</p></td>
+</tr>
+<tr class="field">
+    <th class="field-name"><b>Returns:</b></td>
+    <td class="field-body" width="100%"><b>probability : <i>float</i></b>
+<p class="attr">
+    Probability that every predicted target value was generated by a positive density or distribution, rather than a negative density or distribution.
+</p></td>
+</tr>
+    </tbody>
+</table>
+              
+            </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../hypothesis/" class="btn btn-neutral float-right" title="Hypothesis testing">Next <span class="icon icon-circle-arrow-right"></span></a>
+      
+      
+        <a href="../kernel_explainer/" class="btn btn-neutral" title="Kernel explainer"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+    
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+      
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="versions">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      
+      
+        <span><a href="../kernel_explainer/" style="color: #fcfcfc;">&laquo; Previous</a></span>
+      
+      
+        <span style="margin-left: 15px"><a href="../hypothesis/" style="color: #fcfcfc">Next &raquo;</a></span>
+      
+    </span>
+</div>
+    <script>var base_url = '..';</script>
+    <script src="../js/theme.js" defer></script>
+      <script src="../search/main.js" defer></script>
+    <script defer>
+        window.onload = function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        };
+    </script>
+
+</body>
+</html>
