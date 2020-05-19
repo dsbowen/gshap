@@ -197,12 +197,13 @@ from gshap.intergroup import IntergroupDifference
 
 from sklearn.svm import SVC
 
-X, y = load_recidivism(return_X_y=True)
+recidivism = load_recidivism()
+X, y = recidivism.data, recidivism.target
 clf = SVC().fit(X,y)
 
-g = IntergroupDifference(group=X_test['black'], distance='relative_mean_distance')
-explainer = gshap.KernelExplainer(clf.predict, X_train, g)
-explainer.gshap_values(X_test, nsamples=32)
+g = IntergroupDifference(group=X['black'], distance='relative_mean_distance')
+explainer = gshap.KernelExplainer(clf.predict, X, g)
+explainer.gshap_values(X, nsamples=10)
 </code></pre>
 
 <p>Out:</p>
@@ -212,7 +213,7 @@ explainer.gshap_values(X_test, nsamples=32)
 
 <h4 id="methods">Methods</h4>
 <p class="func-header">
-    <i></i> <b>__call__</b>(<i>self, output</i>) <a class="src-href" target="_blank" href="https://github.com/dsbowen/gshap/blob/master/gshap/intergroup.py#L72">[source]</a>
+    <i></i> <b>__call__</b>(<i>self, output</i>) <a class="src-href" target="_blank" href="https://github.com/dsbowen/gshap/blob/master/gshap/intergroup.py#L73">[source]</a>
 </p>
 
 <p>Compute distance measure between groups.</p>
@@ -239,7 +240,7 @@ explainer.gshap_values(X_test, nsamples=32)
 
 <h2 id="gshapintergroupabsolute_mean_distance">gshap.intergroup.<strong>absolute_mean_distance</strong></h2>
 <p class="func-header">
-    <i>def</i> gshap.intergroup.<b>absolute_mean_distance</b>(<i>out_0, out_1</i>) <a class="src-href" target="_blank" href="https://github.com/dsbowen/gshap/blob/master/gshap/intergroup.py#L93">[source]</a>
+    <i>def</i> gshap.intergroup.<b>absolute_mean_distance</b>(<i>out_0, out_1</i>) <a class="src-href" target="_blank" href="https://github.com/dsbowen/gshap/blob/master/gshap/intergroup.py#L94">[source]</a>
 </p>
 
 <table class="docutils field-list field-table" frame="void" rules="none">
@@ -269,7 +270,7 @@ explainer.gshap_values(X_test, nsamples=32)
 
 <h2 id="gshapintergrouprelative_mean_distance">gshap.intergroup.<strong>relative_mean_distance</strong></h2>
 <p class="func-header">
-    <i>def</i> gshap.intergroup.<b>relative_mean_distance</b>(<i>out_0, out_1</i>) <a class="src-href" target="_blank" href="https://github.com/dsbowen/gshap/blob/master/gshap/intergroup.py#L111">[source]</a>
+    <i>def</i> gshap.intergroup.<b>relative_mean_distance</b>(<i>out_0, out_1</i>) <a class="src-href" target="_blank" href="https://github.com/dsbowen/gshap/blob/master/gshap/intergroup.py#L112">[source]</a>
 </p>
 
 <table class="docutils field-list field-table" frame="void" rules="none">

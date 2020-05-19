@@ -5,7 +5,7 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="gshap",
-    version="0.0.1",
+    version="0.0.2",
     author="Dillon Bowen",
     author_email="dsbowen@wharton.upenn.edu",
     description="A technique in explainable AI for answering broader questions in machine learning.",

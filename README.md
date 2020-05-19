@@ -1,7 +1,5 @@
 Generalized Shapley Additive Explanations (G-SHAP) is a technique in explainable AI for answering broad questions in machine learning.
 
-[Read the docs](https://dsbowen.github.io/gshap).
-
 ## Applications
 
 ### General classification and regression
@@ -39,12 +37,13 @@ from gshap.intergroup import IntergroupDifference
 
 from sklearn.svm import SVC
 
-X, y = load_recidivism(return_X_y=True)
+recidivism = load_recidivism()
+X, y = recidivism.data, recidivism.target
 clf = SVC().fit(X, y)
 
 g = IntergroupDifference(group=X['black'], distance='relative_mean_distance')
 explainer = gshap.KernelExplainer(clf.predict, X, g)
-explainer.gshap_values(X_test, nsamples=32)
+explainer.gshap_values(X, nsamples=10)
 ```
 
 Out:
