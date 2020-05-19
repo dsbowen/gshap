@@ -9,7 +9,7 @@
   
   
   <link rel="shortcut icon" href="../img/favicon.ico">
-  <title>Hypothesis testing - Generalized SHAP</title>
+  <title>Datasets - Generalized SHAP</title>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700" />
 
   <link rel="stylesheet" href="../css/theme.css" />
@@ -18,8 +18,8 @@
   
   <script>
     // Current page data
-    var mkdocs_page_name = "Hypothesis testing";
-    var mkdocs_page_input_path = "hypothesis.md";
+    var mkdocs_page_name = "Datasets";
+    var mkdocs_page_input_path = "datasets.md";
     var mkdocs_page_url = null;
   </script>
   
@@ -56,26 +56,24 @@
                     </li>
                 </ul>
                 <p class="caption"><span class="caption-text">General functions</span></p>
-                <ul class="current">
+                <ul>
                     <li class="toctree-l1"><a class="reference internal" href="../probability_distance/">General classification and regression</a>
                     </li>
-                    <li class="toctree-l1 current"><a class="reference internal current" href="./">Hypothesis testing</a>
-    <ul class="current">
-    <li class="toctree-l2"><a class="reference internal" href="#gshaphypothesishypothesistest">gshap.hypothesis.HypothesisTest</a>
-        <ul>
-    <li class="toctree-l3"><a class="reference internal" href="#examples">Examples</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#methods">Methods</a>
-    </li>
-        </ul>
-    </li>
-    </ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../hypothesis/">Hypothesis testing</a>
                     </li>
                     <li class="toctree-l1"><a class="reference internal" href="../intergroup/">Intergroup differences</a>
                     </li>
                 </ul>
-                <ul>
-                    <li class="toctree-l1"><a class="reference internal" href="../datasets/">Datasets</a>
+                <ul class="current">
+                    <li class="toctree-l1 current"><a class="reference internal current" href="./">Datasets</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#gshapdatasetsload_recidivism">gshap.datasets.load_recidivism</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#gshapdatasetsload_gdp">gshap.datasets.load_gdp</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#gshapdatasetsbunch">gshap.datasets.Bunch</a>
+    </li>
+    </ul>
                     </li>
                 </ul>
                 <ul>
@@ -102,12 +100,8 @@
     <li><a href="..">Docs</a> &raquo;</li>
     
       
-        
-          <li>General functions &raquo;</li>
-        
-      
     
-    <li>Hypothesis testing</li>
+    <li>Datasets</li>
     <li class="wy-breadcrumbs-aside">
       
     </li>
@@ -140,8 +134,7 @@
     }
 </style>
 
-<h1 id="hypothesis-testing">Hypothesis testing</h1>
-<p>For examples and interpretation, see my notebook on <a href="https://github.com/dsbowen/gshap/blob/master/hypothesis.ipynb">hypothesis test explanations</a>.</p>
+<h1 id="example-datasets">Example datasets</h1>
 <table class="docutils field-list field-table" frame="void" rules="none">
     <col class="field-name" />
     <col class="field-body" />
@@ -150,88 +143,96 @@
     </tbody>
 </table>
 
-<h2 id="gshaphypothesishypothesistest">gshap.hypothesis.<strong>HypothesisTest</strong></h2>
+<h2 id="gshapdatasetsload_recidivism">gshap.datasets.<strong>load_recidivism</strong></h2>
 <p class="func-header">
-    <i>class</i> gshap.hypothesis.<b>HypothesisTest</b>(<i>test, bootstrap_samples=1000</i>) <a class="src-href" target="_blank" href="https://github.com/dsbowen/gshap/blob/master/gshap/hypothesis.py#L11">[source]</a>
+    <i>def</i> gshap.datasets.<b>load_recidivism</b>(<i>return_X_y=False</i>) <a class="src-href" target="_blank" href="https://github.com/dsbowen/gshap/blob/master/gshap/datasets/__init__.py#L32">[source]</a>
 </p>
 
-<p>This class measures how likely a hypothesis is to be true of an output
-vector. It uses a bootstrap analysis to compute the probability that a
-hypothesis is true of a population from a sample output vector.</p>
+<p>Load the COMPAS recidivism dataset. The purpose of this dataset is to
+predict whether a criminal will recidivate within two years of release.</p>
 <table class="docutils field-list field-table" frame="void" rules="none">
     <col class="field-name" />
     <col class="field-body" />
     <tbody valign="top">
         <tr class="field">
     <th class="field-name"><b>Parameters:</b></td>
-    <td class="field-body" width="100%"><b>test : <i>callable</i></b>
+    <td class="field-body" width="100%"><b>return_X_y : <i>bool, default=False</i></b>
 <p class="attr">
-    Takes an output vector and returns a boolean indicator that the hypothesis is true of the output vector. This will usually involve computing a sample statistic of the output vector, then returning an indicator that the sample statistic fell within a certain range.
-</p>
-<b>bootstrap_samples : <i>int</i></b>
-<p class="attr">
-    Number of bootstrap samples for hypothesis testing.
-</p></td>
-</tr>
-<tr class="field">
-    <th class="field-name"><b>Attributes:</b></td>
-    <td class="field-body" width="100%"><b>test : <i>callable</i></b>
-<p class="attr">
-    Set from the <code>test</code> parameter.
-</p>
-<b>bootstrap_samples : <i>int</i></b>
-<p class="attr">
-    Set from the <code>bootstrap_samples</code> parameter.
-</p></td>
-</tr>
-    </tbody>
-</table>
-
-<h4 id="examples">Examples</h4>
-<pre><code class="python">import gshap
-from gshap.hypothesis import HypothesisTest
-
-from sklearn.datasets import load_diabetes
-from sklearn.linear_model import Lasso
-
-X, y = load_diabetes(return_X_y=True)
-reg = Lasso(alpha=.1).fit(X, y)
-
-test = lambda y_pred: y_pred.mean() &gt; 155
-g = HypothesisTest(test, bootstrap_samples=100)
-explainer = gshap.KernelExplainer(reg.predict, X, g)
-# artifically select a sample which with higher-than-average y
-explainer.gshap_values(X[y &gt; 70], nsamples=100)
-</code></pre>
-
-<p>Out:</p>
-<pre><code>array([-0.0069,  0.0253,  0.2572,  0.1112, -0.0108, -0.0105,  0.0317,
-    0.0009,  0.1415,  0.0071])
-</code></pre>
-
-<h4 id="methods">Methods</h4>
-<p class="func-header">
-    <i></i> <b>__call__</b>(<i>self, output</i>) <a class="src-href" target="_blank" href="https://github.com/dsbowen/gshap/blob/master/gshap/hypothesis.py#L66">[source]</a>
-</p>
-
-<p>Computes the probablity of the hypothesis being true of the population
-from which the sample was drawn.</p>
-<table class="docutils field-list field-table" frame="void" rules="none">
-    <col class="field-name" />
-    <col class="field-body" />
-    <tbody valign="top">
-        <tr class="field">
-    <th class="field-name"><b>Parameters:</b></td>
-    <td class="field-body" width="100%"><b>output : <i>numpy.array</i></b>
-<p class="attr">
-    (# observations, # targets) vector of model outputs.
+    Indicates whether to return just the X and y matrices, as opposed to the data <code>Bunch</code>.
 </p></td>
 </tr>
 <tr class="field">
     <th class="field-name"><b>Returns:</b></td>
-    <td class="field-body" width="100%"><b>probability : <i>scalar between 0 and 1</i></b>
+    <td class="field-body" width="100%"><b>bunch : <i>Bunch</i></b>
 <p class="attr">
-    Probability that the hypothesis is true of the population from which the sample was drawn.
+    Object containing the dataframe, X feature matrix, and y target vector. Or, if <code>return_X_y</code>, return (X,y).
+</p></td>
+</tr>
+    </tbody>
+</table>
+
+<h2 id="gshapdatasetsload_gdp">gshap.datasets.<strong>load_gdp</strong></h2>
+<p class="func-header">
+    <i>def</i> gshap.datasets.<b>load_gdp</b>(<i>return_X_y=False</i>) <a class="src-href" target="_blank" href="https://github.com/dsbowen/gshap/blob/master/gshap/datasets/__init__.py#L55">[source]</a>
+</p>
+
+<p>Load the GDP growth dataset (from FRED data). The purpose of this
+dataset is to forecast GDP growth based on macroeconomic variables.</p>
+<table class="docutils field-list field-table" frame="void" rules="none">
+    <col class="field-name" />
+    <col class="field-body" />
+    <tbody valign="top">
+        <tr class="field">
+    <th class="field-name"><b>Parameters:</b></td>
+    <td class="field-body" width="100%"><b>return_X_y : <i>bool, default=False</i></b>
+<p class="attr">
+    Indicates whether to return just the X and y matrices, as opposed to the data <code>Bunch</code>.
+</p></td>
+</tr>
+<tr class="field">
+    <th class="field-name"><b>Returns:</b></td>
+    <td class="field-body" width="100%"><b>bunch : <i>Bunch</i></b>
+<p class="attr">
+    Object containing the dataframe, X feature matrix, and y target vector. Or, if <code>return_X_y</code>, return (X,y).
+</p></td>
+</tr>
+    </tbody>
+</table>
+
+<h2 id="gshapdatasetsbunch">gshap.datasets.<strong>Bunch</strong></h2>
+<p class="func-header">
+    <i>class</i> gshap.datasets.<b>Bunch</b>(<i>filename, target</i>) <a class="src-href" target="_blank" href="https://github.com/dsbowen/gshap/blob/master/gshap/datasets/__init__.py#L78">[source]</a>
+</p>
+
+<p>Dataset container.</p>
+<table class="docutils field-list field-table" frame="void" rules="none">
+    <col class="field-name" />
+    <col class="field-body" />
+    <tbody valign="top">
+        <tr class="field">
+    <th class="field-name"><b>Parameters:</b></td>
+    <td class="field-body" width="100%"><b>filename : <i>str</i></b>
+<p class="attr">
+    Name of the file in <code>gshap/datasets</code>.
+</p>
+<b>target : <i>str</i></b>
+<p class="attr">
+    Name of target variable
+</p></td>
+</tr>
+<tr class="field">
+    <th class="field-name"><b>Attributes:</b></td>
+    <td class="field-body" width="100%"><b>df : <i>pandas.DataFrame</i></b>
+<p class="attr">
+    Dataframe containing features and the target variable.
+</p>
+<b>data : <i>pandas.DataFrame</i></b>
+<p class="attr">
+    Dataframe containing only the features
+</p>
+<b>target : <i>pandas.Series</i></b>
+<p class="attr">
+    Series of the target variable.
 </p></td>
 </tr>
     </tbody>
@@ -243,10 +244,10 @@ from which the sample was drawn.</p>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="../intergroup/" class="btn btn-neutral float-right" title="Intergroup differences">Next <span class="icon icon-circle-arrow-right"></span></a>
+        <a href="../contribute/" class="btn btn-neutral float-right" title="Contribute">Next <span class="icon icon-circle-arrow-right"></span></a>
       
       
-        <a href="../probability_distance/" class="btn btn-neutral" title="General classification and regression"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../intergroup/" class="btn btn-neutral" title="Intergroup differences"><span class="icon icon-circle-arrow-left"></span> Previous</a>
       
     </div>
   
@@ -272,10 +273,10 @@ from which the sample was drawn.</p>
     <span class="rst-current-version" data-toggle="rst-current-version">
       
       
-        <span><a href="../probability_distance/" style="color: #fcfcfc;">&laquo; Previous</a></span>
+        <span><a href="../intergroup/" style="color: #fcfcfc;">&laquo; Previous</a></span>
       
       
-        <span style="margin-left: 15px"><a href="../intergroup/" style="color: #fcfcfc">Next &raquo;</a></span>
+        <span style="margin-left: 15px"><a href="../contribute/" style="color: #fcfcfc">Next &raquo;</a></span>
       
     </span>
 </div>

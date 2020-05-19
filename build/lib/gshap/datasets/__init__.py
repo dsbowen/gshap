@@ -46,7 +46,7 @@ def load_recidivism(return_X_y=False):
         Object containing the dataframe, X feature matrix, and y target 
         vector. Or, if `return_X_y`, return (X,y).
     """
-    return _load_dataset(
+    return load_dataset(
         'compas/two-year-recidivism.csv', 
         target='two_year_recid',
         return_X_y=return_X_y
@@ -69,7 +69,7 @@ def load_gdp(return_X_y=False):
         Object containing the dataframe, X feature matrix, and y target 
         vector. Or, if `return_X_y`, return (X,y).
     """
-    return _load_dataset(
+    return load_dataset(
         'gdp/GDP-growth.csv',
         target='GDP_g',
         return_X_y=return_X_y
