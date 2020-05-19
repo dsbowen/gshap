@@ -1,5 +1,7 @@
 __pycache__/
 *.egg-info/
+build/
+dist/
 docs_md/
 gshap/performance.py
 .gitcredentials
