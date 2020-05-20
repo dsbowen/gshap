@@ -1,0 +1,18 @@
+site_name: Generalized SHAP
+docs_dir: docs_md
+site_dir: docs
+nav:
+  - Home: index.md
+  - Technical: technical.md
+  - Kernel explainer: kernel_explainer.md
+  - General functions:
+    - General classification and regression: probability_distance.md
+    - Hypothesis testing: hypothesis.md
+    - Intergroup differences: intergroup.md
+  - Datasets: datasets.md
+  - Contribute: contribute.md
+theme: readthedocs
+extra_javascript:
+  - https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-MML-AM_CHTML
+markdown_extensions:
+  - mdx_math

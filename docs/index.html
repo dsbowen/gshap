@@ -72,6 +72,10 @@
                     </li>
                 </ul>
                 <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="technical/">Technical</a>
+                    </li>
+                </ul>
+                <ul>
                     <li class="toctree-l1"><a class="reference internal" href="kernel_explainer/">Kernel explainer</a>
                     </li>
                 </ul>
@@ -127,7 +131,7 @@
                 <h1 id="generalized-shapley-additive-explanations">Generalized Shapley Additive Explanations</h1>
 <p>Generalized Shapley Additive Explanations (G-SHAP) is a technique in explainable AI for answering broad questions in machine learning.</p>
 <h2 id="applications">Applications</h2>
-<p>This is just a small sample of the questions G-SHAP can address.</p>
+<p>This is just a small sample of the questions G-SHAP can answer.</p>
 <h3 id="general-classification-and-regression">General classification and regression</h3>
 <p>Suppose we have a black-box model which diagnoses patients with COVID-19, the flu, or a common cold based on their symptoms. Existing explanatory methods can tell us why our model diagnosed a patient with COVID-19. G-SHAP can answer broader questions, such as <em>how do the symptoms which distinguish COVID-19 from the flu differ from those which distinguish COVID-19 from the common cold?</em>.</p>
 <p>Full analysis <a href="https://github.com/dsbowen/gshap/blob/master/classification.ipynb">here</a>.</p>
@@ -184,7 +188,7 @@ explainer.gshap_values(X, nsamples=10)
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="kernel_explainer/" class="btn btn-neutral float-right" title="Kernel explainer">Next <span class="icon icon-circle-arrow-right"></span></a>
+        <a href="technical/" class="btn btn-neutral float-right" title="Technical">Next <span class="icon icon-circle-arrow-right"></span></a>
       
       
     </div>
@@ -212,12 +216,13 @@ explainer.gshap_values(X, nsamples=10)
       
       
       
-        <span style="margin-left: 15px"><a href="kernel_explainer/" style="color: #fcfcfc">Next &raquo;</a></span>
+        <span style="margin-left: 15px"><a href="technical/" style="color: #fcfcfc">Next &raquo;</a></span>
       
     </span>
 </div>
     <script>var base_url = '.';</script>
     <script src="js/theme.js" defer></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-MML-AM_CHTML" defer></script>
       <script src="search/main.js" defer></script>
     <script defer>
         window.onload = function () {
@@ -230,5 +235,5 @@ explainer.gshap_values(X, nsamples=10)
 
 <!--
 MkDocs version : 1.1.1
-Build Date UTC : 2020-05-20 00:35:16.622107+00:00
+Build Date UTC : 2020-05-20 19:43:43.008110+00:00
 -->

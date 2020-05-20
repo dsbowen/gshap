@@ -51,6 +51,10 @@
                     <li class="toctree-l1"><a class="reference internal" href="..">Home</a>
                     </li>
                 </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../technical/">Technical</a>
+                    </li>
+                </ul>
                 <ul class="current">
                     <li class="toctree-l1 current"><a class="reference internal current" href="./">Kernel explainer</a>
     <ul class="current">
@@ -160,7 +164,7 @@ values.</p>
     <th class="field-name"><b>Parameters:</b></td>
     <td class="field-body" width="100%"><b>model : <i>callable</i></b>
 <p class="attr">
-    Callable which takes a (# samples x # features) matrix and returns an output which will be fed into <code>g</code>. For ordinary SHAP, the model returns a (# samples, # targets) output vector.
+    Callable which takes a (# observations, # features) matrix and returns an output which will be fed into <code>g</code>. For ordinary SHAP, the model returns a (# observations, # targets) output vector.
 </p>
 <b>data : <i>numpy.array or pandas.DataFrame or pandas.Series</i></b>
 <p class="attr">
@@ -330,7 +334,7 @@ in terms of the general function <code>self.g</code>.</p>
         <a href="../probability_distance/" class="btn btn-neutral float-right" title="General classification and regression">Next <span class="icon icon-circle-arrow-right"></span></a>
       
       
-        <a href=".." class="btn btn-neutral" title="Home"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../technical/" class="btn btn-neutral" title="Technical"><span class="icon icon-circle-arrow-left"></span> Previous</a>
       
     </div>
   
@@ -356,7 +360,7 @@ in terms of the general function <code>self.g</code>.</p>
     <span class="rst-current-version" data-toggle="rst-current-version">
       
       
-        <span><a href=".." style="color: #fcfcfc;">&laquo; Previous</a></span>
+        <span><a href="../technical/" style="color: #fcfcfc;">&laquo; Previous</a></span>
       
       
         <span style="margin-left: 15px"><a href="../probability_distance/" style="color: #fcfcfc">Next &raquo;</a></span>
@@ -365,6 +369,7 @@ in terms of the general function <code>self.g</code>.</p>
 </div>
     <script>var base_url = '..';</script>
     <script src="../js/theme.js" defer></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-MML-AM_CHTML" defer></script>
       <script src="../search/main.js" defer></script>
     <script defer>
         window.onload = function () {

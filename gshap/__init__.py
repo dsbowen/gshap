@@ -15,9 +15,9 @@ class KernelExplainer():
     Parameters
     ----------
     model : callable
-        Callable which takes a (# samples x # features) matrix and returns an 
-        output which will be fed into `g`. For ordinary SHAP, the model 
-        returns a (# samples, # targets) output vector.
+        Callable which takes a (# observations, # features) matrix and returns
+        an output which will be fed into `g`. For ordinary SHAP, the model 
+        returns a (# observations, # targets) output vector.
     
     data : numpy.array or pandas.DataFrame or pandas.Series
         Background dataset from which values are randomly sampled to simulate 

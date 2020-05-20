@@ -1,3 +1,5 @@
+# Generalized Shapley Additive Explanations
+
 Generalized Shapley Additive Explanations (G-SHAP) is a technique in explainable AI for answering broad questions in machine learning.
 
 ## Applications

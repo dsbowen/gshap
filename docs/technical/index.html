@@ -9,7 +9,7 @@
   
   
   <link rel="shortcut icon" href="../img/favicon.ico">
-  <title>Contribute - Generalized SHAP</title>
+  <title>Technical - Generalized SHAP</title>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700" />
 
   <link rel="stylesheet" href="../css/theme.css" />
@@ -18,8 +18,8 @@
   
   <script>
     // Current page data
-    var mkdocs_page_name = "Contribute";
-    var mkdocs_page_input_path = "contribute.md";
+    var mkdocs_page_name = "Technical";
+    var mkdocs_page_input_path = "technical.md";
     var mkdocs_page_url = null;
   </script>
   
@@ -51,8 +51,10 @@
                     <li class="toctree-l1"><a class="reference internal" href="..">Home</a>
                     </li>
                 </ul>
-                <ul>
-                    <li class="toctree-l1"><a class="reference internal" href="../technical/">Technical</a>
+                <ul class="current">
+                    <li class="toctree-l1 current"><a class="reference internal current" href="./">Technical</a>
+    <ul class="current">
+    </ul>
                     </li>
                 </ul>
                 <ul>
@@ -72,10 +74,8 @@
                     <li class="toctree-l1"><a class="reference internal" href="../datasets/">Datasets</a>
                     </li>
                 </ul>
-                <ul class="current">
-                    <li class="toctree-l1 current"><a class="reference internal current" href="./">Contribute</a>
-    <ul class="current">
-    </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../contribute/">Contribute</a>
                     </li>
                 </ul>
       </div>
@@ -99,7 +99,7 @@
     
       
     
-    <li>Contribute</li>
+    <li>Technical</li>
     <li class="wy-breadcrumbs-aside">
       
     </li>
@@ -110,12 +110,24 @@
           <div role="main">
             <div class="section">
               
-                <h1 id="contribute-to-g-shap">Contribute to G-SHAP</h1>
-<p>I encourage users to contribute, including:</p>
-<ol>
-<li>Optimized methods for computing or approximating G-SHAP values.</li>
-<li>Additional general functions.</li>
-</ol>
+                <h1 id="technical-details">Technical details</h1>
+<p>Shapley Additive Explanations (SHAP) measure how important input features are in determining a model's output. The importance of feature <script type="math/tex">j</script> for model <script type="math/tex">f</script>, <script type="math/tex">\phi_j(f)</script>, is a weighted sum of the feature's contribution to the model's output <script type="math/tex">f(x)</script> over all possible feature combinations:</p>
+<p>
+<script type="math/tex; mode=display">
+    \phi_j(f) = \sum_{S\subseteq \{x_1,...,x_p\}\setminus\{x_j\}}
+        \frac{|S|!(p-|S|-1)!}{p!}\big(f(S\cup \{x_j\})-f(S)\big)
+</script>
+</p>
+<p>Where <script type="math/tex">S</script> is a subset of features and <script type="math/tex">p</script> is the number of features in the model. </p>
+<p>In practice, <script type="math/tex">f(S)</script> is estimated by randomly substituting in values for the remaining features, <script type="math/tex">\{x_1,…,x_p\}\setminus S</script>, from a shuffled background dataset <script type="math/tex">X_b</script>. Suppose we compute the model output for an observation <script type="math/tex">f(x)</script> and the background dataset <script type="math/tex">f(X_b)</script>. Each SHAP value <script type="math/tex">\phi_j</script> is the amount of this difference <script type="math/tex">f(x)-f(X_b)</script> due to feature <script type="math/tex">j</script>.</p>
+<p>We can generalize SHAP to compute feature importance for any function <script type="math/tex">g</script> of the model's output. Define a G-SHAP <script type="math/tex">\phi_j^g(f)</script> value as:</p>
+<p>
+<script type="math/tex; mode=display">
+    \phi_j^g(f) = \sum_{S\subseteq \{x_1,...,x_p\}\setminus\{x_j\}}
+        \frac{|S|!(p-|S|-1)!}{p!}\big(g(f(S\cup \{x_j\}))-g(f(S))\big)
+</script>
+</p>
+<p>G-SHAP values have similar interpretation. Suppose we compute a general function of a model’s output for a sample <script type="math/tex">g(f(x))</script> and for the shuffled background dataset <script type="math/tex">g(f(X_b))</script>. Each G-SHAP value <script type="math/tex">\phi_j^g</script> is the amount of this difference <script type="math/tex">g(f(x))-g(f(X_b))</script> due to feature <script type="math/tex">j</script>.</p>
               
             </div>
           </div>
@@ -123,8 +135,10 @@
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
+        <a href="../kernel_explainer/" class="btn btn-neutral float-right" title="Kernel explainer">Next <span class="icon icon-circle-arrow-right"></span></a>
       
-        <a href="../datasets/" class="btn btn-neutral" title="Datasets"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+      
+        <a href=".." class="btn btn-neutral" title="Home"><span class="icon icon-circle-arrow-left"></span> Previous</a>
       
     </div>
   
@@ -150,8 +164,10 @@
     <span class="rst-current-version" data-toggle="rst-current-version">
       
       
-        <span><a href="../datasets/" style="color: #fcfcfc;">&laquo; Previous</a></span>
+        <span><a href=".." style="color: #fcfcfc;">&laquo; Previous</a></span>
       
+      
+        <span style="margin-left: 15px"><a href="../kernel_explainer/" style="color: #fcfcfc">Next &raquo;</a></span>
       
     </span>
 </div>
