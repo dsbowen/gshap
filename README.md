@@ -2,6 +2,8 @@ Generalized Shapley Additive Explanations (G-SHAP) is a technique in explainable
 
 ## Applications
 
+This is just a small sample of the questions G-SHAP can address.
+
 ### General classification and regression
 
 Suppose we have a black-box model which diagnoses patients with COVID-19, the flu, or a common cold based on their symptoms. Existing explanatory methods can tell us why our model diagnosed a patient with COVID-19. G-SHAP can answer broader questions, such as *how do the symptoms which distinguish COVID-19 from the flu differ from those which distinguish COVID-19 from the common cold?*.
