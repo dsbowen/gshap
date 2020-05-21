@@ -54,9 +54,9 @@ values.
 <p class="attr">
     Background dataset from which values are randomly sampled to simulate absent features.
 </p>
-<b>g : <i>callable</i></b>
+<b>g : <i></i></b>
 <p class="attr">
-    Callable which takes the <code>model</code> output and returns a scalar.
+    Callable which takes the <code>model</code> output and returns a scalar. Defaults to the mean of the output, which is the classical SHAP value.
 </p></td>
 </tr>
 <tr class="field">
@@ -91,7 +91,7 @@ reg = LinearRegression().fit(X,y)
 explainer = gshap.KernelExplainer(
     model=reg.predict, data=X, g=lambda x: x.mean()
 )
-explainer.gshap_values(X, nssamples=1000)
+explainer.gshap_values(X, nsamples=1000)
 ```
 
 Out:
@@ -122,7 +122,7 @@ Out:
 
 
 <p class="func-header">
-    <i></i> <b>compare</b>(<i>self, X, bootstrap_samples=1000</i>) <a class="src-href" target="_blank" href="https://github.com/dsbowen/gshap/blob/master/gshap/__init__.py#L102">[source]</a>
+    <i></i> <b>compare</b>(<i>self, X, bootstrap_samples=1000</i>) <a class="src-href" target="_blank" href="https://github.com/dsbowen/gshap/blob/master/gshap/__init__.py#L103">[source]</a>
 </p>
 
 Compares the background data `self.data` to the comparison data `X`
@@ -138,7 +138,7 @@ in terms of the general function `self.g`.
 <p class="attr">
     (# samples, # features) matrix of comparison data.
 </p>
-<b>bootstrap_samples : <i>scalar</i></b>
+<b>bootstrap_samples : <i>int, default=1000</i></b>
 <p class="attr">
     Number of bootstrapped samples for computing <code>g</code> of the background data.
 </p></td>
@@ -162,7 +162,7 @@ in terms of the general function `self.g`.
 
 
 <p class="func-header">
-    <i></i> <b>gshap_values</b>(<i>self, X, **kwargs</i>) <a class="src-href" target="_blank" href="https://github.com/dsbowen/gshap/blob/master/gshap/__init__.py#L131">[source]</a>
+    <i></i> <b>gshap_values</b>(<i>self, X, **kwargs</i>) <a class="src-href" target="_blank" href="https://github.com/dsbowen/gshap/blob/master/gshap/__init__.py#L132">[source]</a>
 </p>
 
 Compute G-SHAP values for all features.
@@ -197,7 +197,7 @@ Compute G-SHAP values for all features.
 
 
 <p class="func-header">
-    <i></i> <b>gshap_value</b>(<i>self, j, X, **kwargs</i>) <a class="src-href" target="_blank" href="https://github.com/dsbowen/gshap/blob/master/gshap/__init__.py#L152">[source]</a>
+    <i></i> <b>gshap_value</b>(<i>self, j, X, **kwargs</i>) <a class="src-href" target="_blank" href="https://github.com/dsbowen/gshap/blob/master/gshap/__init__.py#L153">[source]</a>
 </p>
 
 Compute the G-SHAP value for feature `j`.

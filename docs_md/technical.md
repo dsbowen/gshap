@@ -11,7 +11,7 @@ Where \(S\) is a subset of features and \(p\) is the number of features in the m
 
 In practice, \(f(S)\) is estimated by randomly substituting in values for the remaining features, \(\{x_1,…,x_p\}\setminus S\), from a shuffled background dataset \(X_b\). Suppose we compute the model output for an observation \(f(x)\) and the background dataset \(f(X_b)\). Each SHAP value \(\phi_j\) is the amount of this difference \(f(x)-f(X_b)\) due to feature \(j\).
 
-We can generalize SHAP to compute feature importance for any function \(g\) of the model's output. Define a G-SHAP \(\phi_j^g(f)\) value as:
+We can generalize SHAP to compute feature importance for any function \(g\) of the model's output. Define a G-SHAP value \(\phi_j^g(f)\) as:
 
 $$
     \phi_j^g(f) = \sum_{S\subseteq \{x_1,...,x_p\}\setminus\{x_j\}}

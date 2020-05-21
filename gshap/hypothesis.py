@@ -22,7 +22,7 @@ class HypothesisTest():
         computing a sample statistic of the output vector, then returning an
         indicator that the sample statistic fell within a certain range.
 
-    bootstrap_samples : int
+    bootstrap_samples : int, default=1000
         Number of bootstrap samples for hypothesis testing.
 
     Attributes

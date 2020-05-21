@@ -53,7 +53,7 @@ hypothesis is true of a population from a sample output vector.
 <p class="attr">
     Takes an output vector and returns a boolean indicator that the hypothesis is true of the output vector. This will usually involve computing a sample statistic of the output vector, then returning an indicator that the sample statistic fell within a certain range.
 </p>
-<b>bootstrap_samples : <i>int</i></b>
+<b>bootstrap_samples : <i>int, default=1000</i></b>
 <p class="attr">
     Number of bootstrap samples for hypothesis testing.
 </p></td>

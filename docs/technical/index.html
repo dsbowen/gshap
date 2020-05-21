@@ -15,6 +15,7 @@
   <link rel="stylesheet" href="../css/theme.css" />
   <link rel="stylesheet" href="../css/theme_extra.css" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css" />
+  <link href="../css/extra.css" rel="stylesheet" />
   
   <script>
     // Current page data
@@ -102,6 +103,9 @@
     <li>Technical</li>
     <li class="wy-breadcrumbs-aside">
       
+        <a href="https://github.com/dsbowen/gshap/edit/master/docs_md/technical.md"
+          class="icon icon-github"> Edit on GitHub</a>
+      
     </li>
   </ul>
   
@@ -120,7 +124,7 @@
 </p>
 <p>Where <script type="math/tex">S</script> is a subset of features and <script type="math/tex">p</script> is the number of features in the model. </p>
 <p>In practice, <script type="math/tex">f(S)</script> is estimated by randomly substituting in values for the remaining features, <script type="math/tex">\{x_1,…,x_p\}\setminus S</script>, from a shuffled background dataset <script type="math/tex">X_b</script>. Suppose we compute the model output for an observation <script type="math/tex">f(x)</script> and the background dataset <script type="math/tex">f(X_b)</script>. Each SHAP value <script type="math/tex">\phi_j</script> is the amount of this difference <script type="math/tex">f(x)-f(X_b)</script> due to feature <script type="math/tex">j</script>.</p>
-<p>We can generalize SHAP to compute feature importance for any function <script type="math/tex">g</script> of the model's output. Define a G-SHAP <script type="math/tex">\phi_j^g(f)</script> value as:</p>
+<p>We can generalize SHAP to compute feature importance for any function <script type="math/tex">g</script> of the model's output. Define a G-SHAP value <script type="math/tex">\phi_j^g(f)</script> as:</p>
 <p>
 <script type="math/tex; mode=display">
     \phi_j^g(f) = \sum_{S\subseteq \{x_1,...,x_p\}\setminus\{x_j\}}
@@ -162,6 +166,8 @@
 
   <div class="rst-versions" role="note" aria-label="versions">
     <span class="rst-current-version" data-toggle="rst-current-version">
+      
+          <a href="https://github.com/dsbowen/gshap/" class="fa fa-github" style="float: left; color: #fcfcfc"> GitHub</a>
       
       
         <span><a href=".." style="color: #fcfcfc;">&laquo; Previous</a></span>

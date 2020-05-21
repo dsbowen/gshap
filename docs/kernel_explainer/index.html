@@ -15,6 +15,7 @@
   <link rel="stylesheet" href="../css/theme.css" />
   <link rel="stylesheet" href="../css/theme_extra.css" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css" />
+  <link href="../css/extra.css" rel="stylesheet" />
   
   <script>
     // Current page data
@@ -110,6 +111,9 @@
     <li>Kernel explainer</li>
     <li class="wy-breadcrumbs-aside">
       
+        <a href="https://github.com/dsbowen/gshap/edit/master/docs_md/kernel_explainer.md"
+          class="icon icon-github"> Edit on GitHub</a>
+      
     </li>
   </ul>
   
@@ -170,9 +174,9 @@ values.</p>
 <p class="attr">
     Background dataset from which values are randomly sampled to simulate absent features.
 </p>
-<b>g : <i>callable</i></b>
+<b>g : <i></i></b>
 <p class="attr">
-    Callable which takes the <code>model</code> output and returns a scalar.
+    Callable which takes the <code>model</code> output and returns a scalar. Defaults to the mean of the output, which is the classical SHAP value.
 </p></td>
 </tr>
 <tr class="field">
@@ -205,7 +209,7 @@ reg = LinearRegression().fit(X,y)
 explainer = gshap.KernelExplainer(
     model=reg.predict, data=X, g=lambda x: x.mean()
 )
-explainer.gshap_values(X, nssamples=1000)
+explainer.gshap_values(X, nsamples=1000)
 </code></pre>
 
 <p>Out:</p>
@@ -227,7 +231,7 @@ shuffled background data <code>explainer.data</code>.</p>
 
 <h4 id="methods">Methods</h4>
 <p class="func-header">
-    <i></i> <b>compare</b>(<i>self, X, bootstrap_samples=1000</i>) <a class="src-href" target="_blank" href="https://github.com/dsbowen/gshap/blob/master/gshap/__init__.py#L102">[source]</a>
+    <i></i> <b>compare</b>(<i>self, X, bootstrap_samples=1000</i>) <a class="src-href" target="_blank" href="https://github.com/dsbowen/gshap/blob/master/gshap/__init__.py#L103">[source]</a>
 </p>
 
 <p>Compares the background data <code>self.data</code> to the comparison data <code>X</code>
@@ -242,7 +246,7 @@ in terms of the general function <code>self.g</code>.</p>
 <p class="attr">
     (# samples, # features) matrix of comparison data.
 </p>
-<b>bootstrap_samples : <i>scalar</i></b>
+<b>bootstrap_samples : <i>int, default=1000</i></b>
 <p class="attr">
     Number of bootstrapped samples for computing <code>g</code> of the background data.
 </p></td>
@@ -262,7 +266,7 @@ in terms of the general function <code>self.g</code>.</p>
 </table>
 
 <p class="func-header">
-    <i></i> <b>gshap_values</b>(<i>self, X, **kwargs</i>) <a class="src-href" target="_blank" href="https://github.com/dsbowen/gshap/blob/master/gshap/__init__.py#L131">[source]</a>
+    <i></i> <b>gshap_values</b>(<i>self, X, **kwargs</i>) <a class="src-href" target="_blank" href="https://github.com/dsbowen/gshap/blob/master/gshap/__init__.py#L132">[source]</a>
 </p>
 
 <p>Compute G-SHAP values for all features.</p>
@@ -292,7 +296,7 @@ in terms of the general function <code>self.g</code>.</p>
 </table>
 
 <p class="func-header">
-    <i></i> <b>gshap_value</b>(<i>self, j, X, **kwargs</i>) <a class="src-href" target="_blank" href="https://github.com/dsbowen/gshap/blob/master/gshap/__init__.py#L152">[source]</a>
+    <i></i> <b>gshap_value</b>(<i>self, j, X, **kwargs</i>) <a class="src-href" target="_blank" href="https://github.com/dsbowen/gshap/blob/master/gshap/__init__.py#L153">[source]</a>
 </p>
 
 <p>Compute the G-SHAP value for feature <code>j</code>.</p>
@@ -358,6 +362,8 @@ in terms of the general function <code>self.g</code>.</p>
 
   <div class="rst-versions" role="note" aria-label="versions">
     <span class="rst-current-version" data-toggle="rst-current-version">
+      
+          <a href="https://github.com/dsbowen/gshap/" class="fa fa-github" style="float: left; color: #fcfcfc"> GitHub</a>
       
       
         <span><a href="../technical/" style="color: #fcfcfc;">&laquo; Previous</a></span>

@@ -1,6 +1,8 @@
 site_name: Generalized SHAP
 docs_dir: docs_md
 site_dir: docs
+repo_url: https://github.com/dsbowen/gshap
+edit_uri: edit/master/docs_md
 nav:
   - Home: index.md
   - Technical: technical.md
@@ -12,6 +14,8 @@ nav:
   - Datasets: datasets.md
   - Contribute: contribute.md
 theme: readthedocs
+extra_css:
+  - css/extra.css
 extra_javascript:
   - https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-MML-AM_CHTML
 markdown_extensions:

@@ -15,6 +15,7 @@
   <link rel="stylesheet" href="../css/theme.css" />
   <link rel="stylesheet" href="../css/theme_extra.css" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css" />
+  <link href="../css/extra.css" rel="stylesheet" />
   
   <script>
     // Current page data
@@ -114,6 +115,9 @@
     <li>Hypothesis testing</li>
     <li class="wy-breadcrumbs-aside">
       
+        <a href="https://github.com/dsbowen/gshap/edit/master/docs_md/hypothesis.md"
+          class="icon icon-github"> Edit on GitHub</a>
+      
     </li>
   </ul>
   
@@ -172,7 +176,7 @@ hypothesis is true of a population from a sample output vector.</p>
 <p class="attr">
     Takes an output vector and returns a boolean indicator that the hypothesis is true of the output vector. This will usually involve computing a sample statistic of the output vector, then returning an indicator that the sample statistic fell within a certain range.
 </p>
-<b>bootstrap_samples : <i>int</i></b>
+<b>bootstrap_samples : <i>int, default=1000</i></b>
 <p class="attr">
     Number of bootstrap samples for hypothesis testing.
 </p></td>
@@ -274,6 +278,8 @@ from which the sample was drawn.</p>
 
   <div class="rst-versions" role="note" aria-label="versions">
     <span class="rst-current-version" data-toggle="rst-current-version">
+      
+          <a href="https://github.com/dsbowen/gshap/" class="fa fa-github" style="float: left; color: #fcfcfc"> GitHub</a>
       
       
         <span><a href="../probability_distance/" style="color: #fcfcfc;">&laquo; Previous</a></span>

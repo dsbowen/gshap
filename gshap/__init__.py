@@ -23,8 +23,9 @@ class KernelExplainer():
         Background dataset from which values are randomly sampled to simulate 
         absent features.
 
-    g : callable
-        Callable which takes the `model` output and returns a scalar.
+    g : callable, default=lambda x: x.mean()
+        Callable which takes the `model` output and returns a scalar. Defaults
+        to the mean of the output, which is the classical SHAP value.
 
     Attributes
     ----------
@@ -52,7 +53,7 @@ class KernelExplainer():
     explainer = gshap.KernelExplainer(
     \    model=reg.predict, data=X, g=lambda x: x.mean()
     )
-    explainer.gshap_values(X, nssamples=1000)
+    explainer.gshap_values(X, nsamples=1000)
     ```
 
     Out:
@@ -109,7 +110,7 @@ class KernelExplainer():
         X : numpy.array or pandas.Series or pandas.DataFrame
             (# samples, # features) matrix of comparison data.
 
-        bootstrap_samples : scalar
+        bootstrap_samples : int, default=1000
             Number of bootstrapped samples for computing `g` of the 
             background data.
 
