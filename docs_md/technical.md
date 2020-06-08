@@ -1,6 +1,6 @@
 # Technical
 
-Shapley Additive Explanations (SHAP), derived from Shapley values in game theory, is a popular and mathematically well-grounded example of a feature importance measure. According to SHAP, the importance of feature $j$ for the output of model $f$, $\phi^j(f)$, is a weighted sum of the feature's contribution to the model's output $f(x_i)$ over all possible feature combinations:
+Shapley Additive Explanations (SHAP), derived from Shapley values in game theory, is a popular and mathematically well-grounded example of a feature importance measure. According to SHAP, the importance of feature \(j\) for the output of model \(f\), \(\phi^j(f)\), is a weighted sum of the feature's contribution to the model's output \(f(x_i)\) over all possible feature combinations:
 
 $$
     \phi^j(f) = \sum_{S\subseteq \{x^1,...,x^p\}\setminus\{x^j\}}
