@@ -122,17 +122,17 @@
         \frac{|S|!(p-|S|-1)!}{p!}\big(f(S\cup \{x^j\})-f(S)\big)
 </script>
 </p>
-<p>Where $x^j$ is feature $j$, $S$ is a subset of features, and $p$ is the number of features in the model. </p>
-<p>In practice, $f(S)$ is estimated by substituting in values for the remaining features, ${x^1,…,x^p}\setminus S$, from a randomly selected observation in a background dataset $z\in Z$. Suppose we compute the model output for an observation $f(x_i)$ and a background observation $f(z)$. Each SHAP value $\phi^j$ is the amount of this difference $f(x_i)-f(z)$ due to feature $j$.</p>
-<p>G-SHAP allows us to compute the feature importance of any function $g$ of a model's output. Define a G-SHAP value $\phi_g^j(f)$ as:</p>
+<p>Where <script type="math/tex">x^j</script> is feature <script type="math/tex">j</script>, <script type="math/tex">S</script> is a subset of features, and <script type="math/tex">p</script> is the number of features in the model. </p>
+<p>In practice, <script type="math/tex">f(S)</script> is estimated by substituting in values for the remaining features, <script type="math/tex">\{x^1,…,x^p\}\setminus S</script>, from a randomly selected observation in a background dataset <script type="math/tex">z\in Z</script>. Suppose we compute the model output for an observation <script type="math/tex">f(x_i)</script> and a background observation <script type="math/tex">f(z)</script>. Each SHAP value <script type="math/tex">\phi^j</script> is the amount of this difference <script type="math/tex">f(x_i)-f(z)</script> due to feature <script type="math/tex">j</script>.</p>
+<p>G-SHAP allows us to compute the feature importance of any function <script type="math/tex">g</script> of a model's output. Define a G-SHAP value <script type="math/tex">\phi_g^j(f)</script> as:</p>
 <p>
 <script type="math/tex; mode=display">
     \phi_g^j(f) = \sum_{S\subseteq \{x^1,...,x^p\}\setminus\{x^j\}}
         \frac{|S|!(p-|S|-1)!}{p!}\big(g(f,S\cup \{x^j\},\Omega)-g(f,S,\Omega)\big)
 </script>
 </p>
-<p>Where $\Omega$ is a set of additional arguments.</p>
-<p>G-SHAP values have a similar interpretation as SHAP values. Suppose we compute a function of a model’s output for a sample $g(f,X,\Omega)$ and a background dataset $g(f,Z,\Omega)$. Each G-SHAP value $\phi_g^j$ is the amount of this difference $g(f,X,\Omega)-g(f,Z,\Omega)$ due to feature $j$.</p>
+<p>Where <script type="math/tex">\Omega</script> is a set of additional arguments.</p>
+<p>G-SHAP values have a similar interpretation as SHAP values. Suppose we compute a function of a model’s output for a sample <script type="math/tex">g(f,X,\Omega)</script> and a background dataset <script type="math/tex">g(f,Z,\Omega)</script>. Each G-SHAP value <script type="math/tex">\phi_g^j</script> is the amount of this difference <script type="math/tex">g(f,X,\Omega)-g(f,Z,\Omega)</script> due to feature <script type="math/tex">j</script>.</p>
               
             </div>
           </div>
