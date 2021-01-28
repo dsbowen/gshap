@@ -1,6 +1,6 @@
 """# Kernel Explainer"""
 
-from gshap.utils import get_data
+from gshap.utils import get_columns, get_data
 
 from random import choices, shuffle
 import numpy as np
@@ -122,11 +122,15 @@ class KernelExplainer():
         g_background : float
             *g(model(X_b))*, where *X_b* is the shuffled background data.
         """
-        X = get_data(X)
-        g_data = []
-        for i in range(bootstrap_samples):
+        def compute_g_background():
             sample = np.array(choices(self.data, k=X.shape[0]))
-            g_data.append(self.g(self.model(sample)))
+            if columns is not None:
+                sample = pd.DataFrame(columns=columns, data=sample)
+            return self.g(self.model(sample))
+
+        columns = get_columns(X)
+        X = X.to_frame().T if isinstance(X, pd.Series) else X
+        g_data = [compute_g_background() for _ in range(bootstrap_samples)]
         return self.g(self.model(X)), sum(g_data) / len(g_data)
         
     def gshap_values(self, X, **kwargs):
@@ -187,6 +191,7 @@ class KernelExplainer():
         j'th feature from `X` to `X_mj`.
         5. Return phi = g(model(X_pj)) - g(model(X_mj)).
         """
+        columns = get_columns(X)
         X = get_data(X)
         # Ensure feature dimension of X matches that of the background data
         assert X.shape[1] == self.P
@@ -203,5 +208,8 @@ class KernelExplainer():
         )
         X_pj = X_mj.copy()
         X_pj[:,j] = X[:,j]
+        if columns is not None:
+            X_mj = pd.DataFrame(columns=columns, data=X_mj)
+            X_pj = pd.DataFrame(columns=columns, data=X_pj)
 
         return self.g(self.model(X_pj)) - self.g(self.model(X_mj))
